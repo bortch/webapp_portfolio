@@ -42,10 +42,10 @@ testem.log
 Thumbs.db
 
 # environment
-.env
-.env.local
-.env.development
-.env.test
-.env.production
-.env.staging
-/src/environments/**
+# .env
+# .env.local
+# .env.development
+# .env.test
+# .env.production
+# .env.staging
+# /src/environments/**
