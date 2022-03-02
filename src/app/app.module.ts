@@ -11,15 +11,13 @@ import { InMemoryCache } from '@apollo/client/core';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    RegisterComponent,
-    HomeComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
