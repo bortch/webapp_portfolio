@@ -27,10 +27,8 @@ export class DashboardComponent implements OnInit {
           this.username = this.authService.getUser()!.username;
         }else{
           this.isLoggedIn = false;
-          this.router.navigate(['/login']);
         }
       }
     );
   }
-
 }

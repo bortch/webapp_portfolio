@@ -26,16 +26,22 @@ export class RegisterComponent implements OnInit {
     this.authService.register(username, email, password,language).subscribe({
       next: result => {
         console.log(result);
-        if(result.data && result.data.register.success){
-          const user = result.data.register.user;
-          if (user && user._id && user.accessToken) {
-            this.isSignUpFailed = false;
-            this.isSuccessful = true;
-            this.authService.storeToken(user._id, user.accessToken);
-            this.authService.saveUser(user);
-            this.router.navigate(['/dashboard']);
+        if(result.data){
+          if(result.data.register.success){
+            const user = result.data.register.user;
+            if (user && user._id && user.accessToken) {
+              this.isSignUpFailed = false;
+              this.isSuccessful = true;
+              this.authService.storeToken(user._id, user.accessToken);
+              this.authService.saveUser(user);
+              this.router.navigate(['/dashboard']);
+            }
+          }else{
+            this.errorMessage = result.data.register.message||"";
+            this.isSignUpFailed = true;
           }
-      }},
+        }
+    },
       error: err => {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;

@@ -31,16 +31,22 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.form;
     this.authService.login(email, password).valueChanges.subscribe({
       next: result => {
-        console.log(result.data.login);
-        if (result.data.login && result.data.login.success) {
-          const user = result.data.login.user;
-          if (user && user._id && user.accessToken) {
-            this.authService.storeToken(user._id, user.accessToken);
-            this.authService.saveUser(user);
-            this.isLoggedIn = true;
-            this.isLoginFailed = false;
-            this.router.navigate(['/dashboard']);
-          }
+        if (result.data.login){
+          const data = result.data.login;
+          if (data.success) {
+            const user = data.user;
+            if (user && user._id && user.accessToken) {
+              this.authService.storeToken(user._id, user.accessToken);
+              this.authService.saveUser(user);
+              this.isLoggedIn = true;
+              this.isLoginFailed = false;
+              this.router.navigate(['/dashboard']);
+            }
+          }else{
+            this.errorMessage = data.message||"";
+            this.isLoginFailed = true;
+            this.isLoggedIn = false;
+          } 
       }},
       error: err => {
         this.errorMessage = err.error.message;

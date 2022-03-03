@@ -3,35 +3,8 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { USER_TOKEN, USER_ID, USER } from '../constants';
 import { Apollo, gql } from 'apollo-angular';
+import { CreateUserInput, LoginResponse, RegisterResponse } from './auth.dto';
 
-export class User {
-  username: string | undefined;
-  email: string| undefined;
-  accessToken: string| undefined;
-  _id: string| undefined;
-  language: string| undefined;
-}
-
-export class LoginResponse{
-  login!: AuthResponse;
-}
-
-export class RegisterResponse{
-  register!: AuthResponse;
-}
-
-export class AuthResponse {
-  success: boolean| undefined;
-  message: string| undefined;
-  user: User| undefined;
-}
-
-export class CreateUserInput{
-  email!: string;
-  language!: string;
-  password!: string;
-  username!: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +20,9 @@ export class AuthService {
   }
 
   login(email:string,password:string) {
+    /**
+     * Login user
+     */
     return this.apollo.watchQuery<LoginResponse>({
       query: gql`
         query login($pwd: String!, $email: String!) {
@@ -70,6 +46,9 @@ export class AuthService {
   }
 
   register(username:string,email:string,password:string,language:string){
+    /** 
+     * Register new user
+    */
     const createUserInput = new CreateUserInput();
     createUserInput.email = email;
     createUserInput.username = username;
@@ -98,32 +77,52 @@ export class AuthService {
     });
   }
 
-  storeToken(id:string,token:string){
+  public storeToken(id:string,token:string){
+    /** 
+     * Store user id and token in local storage
+     */
     localStorage.setItem(USER_ID, id);
     localStorage.setItem(USER_TOKEN, token);
     this.isAuth.next(true);
   }
 
-  getToken(): any {
+  public getToken(): any {
+    /**
+     * Get token from local storage
+     */
     return localStorage.getItem(USER_TOKEN);
   }
 
-  reLogin(){
+  public reLogin(){
+    /**
+     * Re-login user automatically
+     */
     this.isAuth.next(true);
   }
 
   public signOut(){
+    /**
+     * Sign out user
+     * Remove user information from local storage
+     * and propagate change in isAuth
+     */ 
     localStorage.removeItem(USER_ID);
     localStorage.removeItem(USER_TOKEN);
     this.isAuth.next(false);
   }
 
   public saveUser(user: any): void {
+    /**
+     * Save user details in local storage
+     */
     window.sessionStorage.removeItem(USER);
     window.sessionStorage.setItem(USER, JSON.stringify(user));
   }
 
   public getUser(): any {
+    /**
+     * Get user details from local storage
+     */
     const user = window.sessionStorage.getItem(USER);
     if (user) {
       return JSON.parse(user);

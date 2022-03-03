@@ -30,6 +30,5 @@ export class AppComponent {
 
   logout(): void {
     this.authService.signOut();
-    window.location.reload();
   }
 }
