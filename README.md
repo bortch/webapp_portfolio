@@ -3,13 +3,14 @@
 A frontend application in Angular that:
 - has a Registration page
 - has a Login page
-- Allows user to provide the following details:
+- allows user to provide the following details:
     - Email
     - Password
     - Default language (provide options for english and french)
 - has a User dashboard (this page should only be visible once the user logged in)
-- Should display `hello {username}` in the selected language
-- Once logged in, the user should stay logged in after page reload
+- should display `hello {username}` in the selected language
+
+Note: once logged in, the user should stay logged in after page reload
 
 ## Development
 
