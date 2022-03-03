@@ -11,7 +11,7 @@ A frontend application in Angular that:
 - Should display `hello {username}` in the selected language
 - Once logged in, the user should stay logged in after page reload
 
-## Development server
+## Development
 
 Run `ng serve` for a dev server. 
 
@@ -19,6 +19,6 @@ Navigate to `http://localhost:4200/`.
 
 The app will automatically reload if you change any of the source files.
 
-## *Production* server
+## API server
 
 [The API server](https://github.com/bortch/webserver_portfolio)
