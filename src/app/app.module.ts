@@ -33,7 +33,7 @@ import { RegisterComponent } from './register/register.component';
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            uri: 'http://localhost:3000/graphql',
+            uri: 'https://webserver-portfolio.herokuapp.com/graphql',
           }),
         };
       },
